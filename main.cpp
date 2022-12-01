@@ -2,10 +2,13 @@
 #include <set>
 #include <map>
 #include <random>
+#include <vector>
+#include <exception>
 
 #include "rb_set.h"
 #include "rb_multiset.h"
 #include "rb_map.h"
+#include "rb_multimap.h"
 using namespace std;
 
 int main(){
@@ -16,21 +19,22 @@ int main(){
     struct cmp{
         bool operator()(const int& a,const int& b) const{return a>b;}
     };
-    //std::map<int,int> t;
-    mchl16_rb_tree::map<int,int,cmp> t;
-    for (int i=1;i<=10;++i){
-       // cout << i << endl;
-       // t.insert({i,i});
-       // ++t[i];
-       t[i]^=5;
-       ++t[i];
-    }
+    // mchl16_rb_tree::set<int> t;
+    mchl16_rb_tree::multimap<int,int> t;
+    vector<int> v;
 
+    for (int i=1;i<=10;++i){
+        t.insert({i,2*i});
+        t.insert({i,3*i});
+        cout << t[i][0] << " " << t[i][1] << ", ";
+        t[i][1]=4*i;
+        cout << t[i][0] << " " << t[i][1] << "\n";
+    }
     
     // int cnt=0;
     // for(int i=0;i<1000000;++i) if(t.contains(i)) ++cnt;
     // cout << cnt;
-
+    
     for(auto i:t) cout << i.first << " " << i.second << "\n";
 
     // for (int i=0;i<10;++i) cout << t.count(i) << " "; cout << "\n";

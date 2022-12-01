@@ -18,6 +18,9 @@ namespace mchl16_rb_tree{
             SetDataObject(const T& key) : _key(data_type<T>(key)){}
 
         public:
+            typedef T stored_type;
+            typedef T KeyT;
+
             size_t size() const{
                 return 1;
             }

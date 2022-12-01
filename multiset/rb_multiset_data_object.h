@@ -19,6 +19,9 @@ namespace mchl16_rb_tree{
             MultisetDataObject(const T& key) : _key(data_type<T>(key)),_size(1){}
 
         public:
+            typedef T stored_type;
+            typedef T KeyT;
+
             size_t size() const{
                 return _size;
             }

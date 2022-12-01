@@ -8,8 +8,9 @@
 namespace mchl16_rb_tree{
     template<typename T,typename Comparer=std::less<T>>
     class MapDataObject{
-        using KeyT=decltype(std::declval<T>().first);
-        using ValT=decltype(std::declval<T>().second);
+        public:
+            using KeyT=decltype(std::declval<T>().first);
+            using ValT=decltype(std::declval<T>().second);
 
         public:
             class iterator;
@@ -22,6 +23,8 @@ namespace mchl16_rb_tree{
             MapDataObject(const T& key) : _key(data_type<KeyT>(key.first)),_val(data_type<ValT>(key.second)){}
 
         public:
+            typedef T stored_type;
+
             size_t size() const{
                 return 1;
             }
