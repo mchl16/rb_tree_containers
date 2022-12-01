@@ -55,7 +55,7 @@ namespace mchl16_rb_tree{
 
             iterator rbegin(){
                 return iterator(this, \
-                (typename rb_multimap_aux_tree<MultimapAuxDataObject<ValT>::iterator) \
+                (typename rb_multimap_aux_tree<MultimapAuxDataObject<ValT>>::iterator) \
                 this->_vals.rbegin());
             }
 
@@ -90,11 +90,11 @@ namespace mchl16_rb_tree{
             }
 
             bool operator++(){
-                return ++pos!=obj->_vals.end();
+                return ++pos==obj->_vals.end();
             }
 
             bool operator--(){
-                return pos--!=obj->_vals.begin();
+                return pos--==obj->_vals.begin();
             }
 
             bool operator==(const iterator& it) const{
