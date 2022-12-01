@@ -17,19 +17,19 @@ namespace mchl16_rb_tree{
     template<typename DataObject>
     typename rb_tree<DataObject>::iterator 
     rb_tree<DataObject>::end() const{
-        return iterator(_rbegin->_next);
+        return iterator(nullptr);
     }
 
     template<typename DataObject>
     typename rb_tree<DataObject>::reverse_iterator 
     rb_tree<DataObject>::rbegin() const{
-        return iterator(_rbegin);
+        return reverse_iterator(_rbegin);
     }
 
     template<typename DataObject>
     typename rb_tree<DataObject>::reverse_iterator 
     rb_tree<DataObject>::rend() const{
-        return iterator(_begin->_prev);
+        return reverse_iterator(nullptr);
     }
 
     template<typename DataObject>
@@ -202,12 +202,10 @@ namespace mchl16_rb_tree{
 
             rb_node *uncle=pos->_children[s2];
             if(!uncle || uncle->_black){
-                if(s1!=s2){
-                    pos2=pos2->_rotate(static_cast<typename rb_node::Direction>(s1)); //inner child, an extra rotation is needed
-                }
+                if(s1!=s2) pos2=pos2->_rotate(s1); //inner child, an extra rotation is needed
                 pos->_black=false;
                 pos2->_black=true;
-                pos2=pos->_rotate(static_cast<typename rb_node::Direction>(s2));
+                pos2=pos->_rotate(s2);
                 return (pos2->_parent ? _root : pos2);
             }
             else{

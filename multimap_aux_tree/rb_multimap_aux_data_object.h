@@ -1,21 +1,25 @@
-#ifndef MCHL16_RB_SET_DATA_OBJECT
-#define MCHL16_RB_SET_DATA_OBJECT
+#ifndef MCHL16_RB_MULTIMAP_AUX_DATA_OBJECT
+#define MCHL16_RB_MULTIMAP_AUX_DATA_OBJECT
 
 #include "../tree/rb_data_type.h"
+#include "../set/rb_set_data_object.h"
 #include <functional>
 #include <utility>
 
 namespace mchl16_rb_tree{
-    template<typename T,typename Comparer=std::less<T>>
-    class SetDataObject{
+    template<typename T>
+    class MultimapAuxDataObject{
         public:
             class iterator;
 
         protected:
-            const data_type<T> _key;
+            data_type<T> _key;
+            
+        public:
+            size_t subtree_size;
 
         public:
-            SetDataObject(const T& key) : _key(data_type<T>(key)){}
+            MultimapAuxDataObject(const T& key) : _key(data_type<T>(key)),subtree_size(1){}
 
         public:
             typedef T stored_type;
@@ -29,12 +33,8 @@ namespace mchl16_rb_tree{
                 return val;
             }
 
-            const T& key() const{
+            T& key() const{
                 return _key.value();
-            }
-
-            static bool compare(const T& a,const T& b){
-                return Comparer{}(a,b);
             }
 
             iterator begin(){
@@ -52,14 +52,15 @@ namespace mchl16_rb_tree{
             bool erase(const T& val){
                 return true;
             }
+            
     };
 
-    template<typename T,typename Comparer>
-    class SetDataObject<T,Comparer>::iterator{ //this one is quite quirky tbh
-        const SetDataObject<T,Comparer> *obj;
+    template<typename T>
+    class MultimapAuxDataObject<T>::iterator{ //this one is quite quirky tbh
+        const MultimapAuxDataObject<T> *obj;
         
         public:
-            iterator(const SetDataObject<T,Comparer>& parent) : obj(&parent){}
+            iterator(const MultimapAuxDataObject<T>& parent) : obj(&parent){}
 
         public:
             const T& operator*() const{

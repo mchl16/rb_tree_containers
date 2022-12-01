@@ -23,7 +23,7 @@ namespace mchl16_rb_tree{
             bool _black;
 
         public:
-            using T=decltype(*std::declval<DataObject>().begin());
+            using T=DataObject::stored_type;
             using KeyT=decltype(std::declval<DataObject>().key());
 
             rb_node(rb_node* prev,rb_node* next,rb_node* parent,\
@@ -38,27 +38,31 @@ namespace mchl16_rb_tree{
                 return _data.key();
             }
 
-            enum Direction{
-                left,
-                right
-            };
-
-            rb_node *_rotate(Direction dir){
+            rb_node *_rotate(const int dir){
                 rb_node *_tmp=_children[dir^1];
                 _tmp->_parent=_parent;
                 _children[dir^1]=_tmp->_children[dir];
                 if(_children[dir^1]) _children[dir^1]->_parent=this;
                 _tmp->_children[dir]=this;
                 
-                if(_parent) _parent->_children[DataObject::compare(_parent->key(),key())]=_tmp;
+               if(_parent) _parent->_children[DataObject::compare(_parent->key(),key())]=_tmp;
+                // if(_parent) _parent->_children[dir^1]=_tmp;
                 _parent=_tmp;
                 return _tmp;
             }
 
             void DFS(){
-                std::cout << key() << " - entering\n";
-                if(_left()) _left()->DFS();
-                if(_right()) _right()->DFS();
+                std::cout << key() << " - entering (" << (_black ? "black" : "red")  << ")\n";
+                
+                if(_left()){
+                    std::cout << key() << " - entering left\n";
+                    _left()->DFS();
+                }
+                
+                if(_right()){
+                    std::cout << key() << " - entering right\n";
+                    _right()->DFS();
+                } 
                 std::cout << key() << " - leaving\n";
             }
 

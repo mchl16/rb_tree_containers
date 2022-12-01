@@ -11,10 +11,11 @@ namespace mchl16_rb_tree{
 
         using KeyT=std::remove_const_t<std::remove_reference_t\
         <decltype(std::declval<DataObject>().key())>>;
-        using ValT=std::remove_reference_t<decltype(std::declval<DataObject>().val())>;
+        using ValT=std::remove_reference_t<decltype((*std::declval<DataObject>().begin()).second)>;
+        using DataT=std::remove_reference_t<decltype(std::declval<DataObject>().val())>;
 
         public:
-            ValT& operator[](const KeyT& key){
+            DataT& operator[](const KeyT& key){
                 if(!this->_root){
                     std::pair<KeyT,ValT> xd=std::make_pair(key,ValT());
                     const KeyT& kek1=xd.first;
@@ -22,7 +23,7 @@ namespace mchl16_rb_tree{
                     std::pair<const KeyT&,ValT&> xd2={kek1,kek2};
 
                     this->_root=this->_begin=this->_rbegin=\
-                    new rb_tree<DataObject>::rb_node(xd2,true);
+                    new typename rb_tree<DataObject>::rb_node(xd2,true);
 
                     this->_size=1;
                     return this->_root->_data.val();
@@ -40,7 +41,7 @@ namespace mchl16_rb_tree{
                             ValT& kek2=xd.second;
                             std::pair<const KeyT&,ValT&> xd2={kek1,kek2};
 
-                            res=new rb_tree<DataObject>::rb_node\
+                            res=new typename rb_tree<DataObject>::rb_node\
                             (pos->_prev,pos,pos,xd2);
 
                             pos->_left()=res;
@@ -57,7 +58,7 @@ namespace mchl16_rb_tree{
                             ValT& kek2=xd.second;
                             std::pair<const KeyT&,ValT&> xd2={kek1,kek2};
 
-                            res=new rb_tree<DataObject>::rb_node\
+                            res=new typename rb_tree<DataObject>::rb_node\
                             (pos,pos->_next,pos,xd2);
 
                             pos->_right()=res;

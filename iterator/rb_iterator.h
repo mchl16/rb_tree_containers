@@ -13,6 +13,10 @@ namespace mchl16_rb_tree{
             iterator(rb_tree<DataObject>::rb_node* n) : iterator_base(n){}
 
         public:
+            explicit operator rb_tree<DataObject>::reverse_iterator() const{
+                return rb_tree<DataObject>::reverse_iterator(this->node,this->pos);
+            }
+
             iterator operator++(){
                 rb_tree<DataObject>::iterator_base::move_next();
                 return *this;
