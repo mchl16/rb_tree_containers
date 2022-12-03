@@ -28,6 +28,7 @@ namespace mchl16_rb_tree{
 
         public:
             typedef T stored_type;
+            typedef std::pair<const KeyT&,ValT&> iterator_type;
 
             size_t size() const{
                 return _vals.size();
@@ -74,7 +75,7 @@ namespace mchl16_rb_tree{
 
         using KeyT=MultimapDataObject<T,Comparer>::KeyT;
 
-        using ValT=decltype(std::declval<T>().second);
+        using ValT=MultimapDataObject<T,Comparer>::ValT;
 
         typename rb_multimap_aux_tree<MultimapAuxDataObject<ValT>>::iterator pos; 
         
@@ -84,9 +85,12 @@ namespace mchl16_rb_tree{
 
         public:
             std::pair<const KeyT&,ValT&> operator*() const{
+                return std::pair<const KeyT&,ValT&>(obj->key(),*pos);
+                /*
                 const KeyT& a=obj->key();
                 ValT& b=const_cast<ValT&>(*pos);
                 return {a,b};
+                */
             }
 
             bool operator++(){

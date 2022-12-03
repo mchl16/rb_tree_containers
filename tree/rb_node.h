@@ -23,7 +23,7 @@ namespace mchl16_rb_tree{
             bool _black;
 
         public:
-            using T=DataObject::stored_type;
+            using T=typename DataObject::stored_type;
             using KeyT=decltype(std::declval<DataObject>().key());
 
             rb_node(rb_node* prev,rb_node* next,rb_node* parent,\

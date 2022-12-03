@@ -24,6 +24,7 @@ namespace mchl16_rb_tree{
 
         public:
             typedef T stored_type;
+            typedef std::pair<const KeyT&,ValT&> iterator_type;
 
             size_t size() const{
                 return 1;

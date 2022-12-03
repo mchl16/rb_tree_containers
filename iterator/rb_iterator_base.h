@@ -18,7 +18,12 @@ namespace mchl16_rb_tree{
             iterator_base(rb_tree<DataObject>::rb_node *n) : node(n),pos(n->_data.begin()){}
 
         public:
-            const decltype(std::declval<DataObject>().begin().operator*()) operator*() const{
+            typedef typename DataObject::iterator_type T;
+            T operator*() const{
+                return *pos;
+            }
+
+            T operator->() const{
                 return *pos;
             }
 

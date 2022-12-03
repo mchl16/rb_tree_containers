@@ -7,9 +7,9 @@
 namespace mchl16_rb_tree{
     template<typename DataObject>
     class rb_tree{
-        using T=DataObject::stored_type;
+        using T=typename DataObject::stored_type;
         //using KeyT=decltype(std::declval<DataObject>().key());
-        using KeyT=DataObject::KeyT;
+        using KeyT=typename DataObject::KeyT;
         
         protected:
             class iterator_base;

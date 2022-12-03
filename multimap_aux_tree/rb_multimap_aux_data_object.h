@@ -23,6 +23,7 @@ namespace mchl16_rb_tree{
 
         public:
             typedef T stored_type;
+            typedef T& iterator_type;
             typedef T KeyT;
 
             size_t size() const{
@@ -63,7 +64,7 @@ namespace mchl16_rb_tree{
             iterator(const MultimapAuxDataObject<T>& parent) : obj(&parent){}
 
         public:
-            const T& operator*() const{
+            T& operator*() const{
                 return obj->key();
             }
 

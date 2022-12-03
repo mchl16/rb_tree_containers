@@ -1,0 +1,5 @@
+# Overview
+My implementation of STL `set`,`multiset`,`map` and `multimap` containers (with some quirks). Comes along with a red-black tree-based list container (which is used as an auxiliary data structure for multimaps).
+
+# Main differences
+In order to speed up my containers, I decided to change the way items are stored in red-black-tree nodes. Standard STL containers store _equivalent_ elements in separate nodes (their ordering is actually defined on equivalence classes that don't need to be singletons). I decided to do away with this distinction and treat equivalent elements as identical, storing their counts (in case of `multiset`) or key-value pairs (in case of `multimap`) in the same node. This also allowed to conveniently access distinct values of the same `multimap` key. &lt;to be converted to proper English&gt;

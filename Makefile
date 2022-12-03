@@ -12,13 +12,17 @@ debug:
 	$(CC) $(CFLAGS_DEBUG) main.cpp -o main.exe
 
 tests:
-	@cnt_ok=0
-	@cnt_total=0
-	@echo "Testing started"
-	@cd tests
-	@for i in $(TESTS)
-	@do	
-		$(CC) $(CFLAGS_DEBUG) ($i).cpp -o ($i)
+	@cnt_ok=0;
+	@cnt_total=0;
+	@echo "Testing started";
+	@cd tests;
+	i="test_set_insert"
+	$(CC) $(CFLAGS_DEBUG) $$i.cpp -o $$i
+
+dupa:
+	for i in $(TESTS);
+	do
+		$(CC) $(CFLAGS_DEBUG) $i.cpp -o $i
 		./($i)
 		((++cnt_total))
 		@if (($? == 0))
@@ -29,8 +33,8 @@ tests:
 		@	echo "Not OK"
 		@fi
 	@done
-	@echo "Successful tests: $cnt_ok"
-	@echo "Total tests: $cnt_total"
+	@echo "Successful tests: $(cnt_ok)"
+	@echo "Total tests: $(cnt_total)"
 
 clean:
 	rm -rf *.o *.exe

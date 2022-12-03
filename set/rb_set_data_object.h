@@ -10,6 +10,7 @@ namespace mchl16_rb_tree{
     class SetDataObject{
         public:
             class iterator;
+            typedef T KeyT;
 
         protected:
             const data_type<T> _key;
@@ -19,7 +20,8 @@ namespace mchl16_rb_tree{
 
         public:
             typedef T stored_type;
-            typedef T KeyT;
+            typedef const T& iterator_type;
+            
 
             size_t size() const{
                 return 1;
